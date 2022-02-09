@@ -5,7 +5,7 @@ import FormContainer from '../components/FormContainer'
 import axios from "axios"
 import { getUser, saveUser } from "../utils/index"
 
-const LoginScreen = ({ /* location, history */ }) => {
+const LoginScreen = ({}) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)

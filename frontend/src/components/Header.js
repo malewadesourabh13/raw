@@ -1,18 +1,12 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap';
 import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
-import { logout } from '../actions/userActions'
+import { isLoggedIn, getUser } from '../utils/index'
 
 function Header() {
-
-  const dispatch = useDispatch()
-
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
-
   const logoutHandler = () => {
-    dispatch(logout())
+    localStorage.clear();
+    window.location.reload();
   }
 
   return <header>
@@ -24,9 +18,8 @@ function Header() {
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="me-auto">
-        <LinkContainer to='/cart'><Nav.Link><i className='fas fa-shopping-cart'></i>Cart</Nav.Link></LinkContainer>
-         {userInfo ? (
-                <NavDropdown title={userInfo.name} id='username'>
+         {isLoggedIn() ? (
+                <NavDropdown title={getUser().email} id='username'>
                   <LinkContainer to='/profile'>
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>

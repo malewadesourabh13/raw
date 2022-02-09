@@ -16,7 +16,6 @@ const app = express();
 
 app.use(express.json())
 
-//study cors
 app.use(cors({origin:'http://localhost:3000'}))
 
 

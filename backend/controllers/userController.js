@@ -80,6 +80,7 @@ const getUserProfile = async(req, res) => {
            name: user.name,
            email: user.email,
            isAdmin: user.isAdmin,
+           paid: user.paid
        })
    } else {
        return res.send({

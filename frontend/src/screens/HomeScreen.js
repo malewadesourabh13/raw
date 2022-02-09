@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import { Navigate } from "react-router-dom"
 import Product from '../components/Product'
-/* import products from '../products' */
 import axios from 'axios';
 import { getUser, isLoggedIn } from '../utils';
 
