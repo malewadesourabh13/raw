@@ -1,0 +1,264 @@
+{
+	"info": {
+		"_postman_id": "ecce6e04-02f9-4d3e-96e7-f03f44d5790f",
+		"name": "User Authentication Project",
+		"description": "test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "/products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/products/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/products/6203c907700b35999f5df98d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"products",
+								"6203c907700b35999f5df98d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST/products",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMDNjOTA3NzAwYjM1OTk5ZjVkZjk3YyIsImlhdCI6MTY0NDQxODI3MywiZXhwIjoxNjQ3MDEwMjczfQ.32P_nxIkzwHkzliYeTtfEEX1JR7lRo7wwFkoxOdYwnM",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n      \"name\": \"Sample name1\",\r\n      \"price\": 5000,\r\n      \"user\": \"13\",\r\n      \"image\": \"image\",\r\n      \"brand\": \"Sample brand1\",\r\n      \"category\": \"Sample category1\",\r\n      \"countInStock\": 10,\r\n      \"numReviews\": 10,\r\n      \"description\": \"Sample description1\"\r\n }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "POST/users/login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"users",
+								"login"
+							]
+						},
+						"description": "Authenticate users through email and password and authorization"
+					},
+					"response": []
+				},
+				{
+					"name": "POST/users",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Shiva Malewade\",\r\n    \"email\": \"shiva@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"users"
+							]
+						},
+						"description": "register a new user by by providing name, email and password in the body and in json format"
+					},
+					"response": []
+				},
+				{
+					"name": "GET/users/admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMDM3MThhZjQ1MjBlNWFiNWI4NmNhNyIsImlhdCI6MTY0NDQwMTQ4OCwiZXhwIjoxNjQ2OTkzNDg4fQ.Dvdv79JLUbBu7Qi0uJ2WIqdodp3AFUwNsUNucZ0VW7I",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/users/admin?Authorization",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"users",
+								"admin"
+							],
+							"query": [
+								{
+									"key": "Authorization",
+									"value": null
+								}
+							]
+						},
+						"description": "get all the users through admin only , and by providing admin authorization token"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE/users/admin/:id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMDM3MThhZjQ1MjBlNWFiNWI4NmNhNyIsImlhdCI6MTY0NDQwMTQ4OCwiZXhwIjoxNjQ2OTkzNDg4fQ.Dvdv79JLUbBu7Qi0uJ2WIqdodp3AFUwNsUNucZ0VW7I",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/users/admin/620394cfc5806e711deffcc9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"users",
+								"admin",
+								"620394cfc5806e711deffcc9"
+							]
+						},
+						"description": "Delete a user by providing the user ID"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT/user/admin",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "DELETE/products/:id",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"warning": "This is a duplicate header and will be overridden by the Authorization header generated by Postman.",
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyMDNjOTA3NzAwYjM1OTk5ZjVkZjk3YyIsImlhdCI6MTY0NDQxNzcxOCwiZXhwIjoxNjQ3MDA5NzE4fQ.2hBcqL5pwOJBY7bwklYOmdHXTHoRg_krGEDAceJ-OhA",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:5000/products/6203c907700b35999f5df98d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"products",
+								"6203c907700b35999f5df98d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
