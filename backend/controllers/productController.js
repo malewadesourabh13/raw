@@ -4,9 +4,14 @@ const Product = require('../models/productModel')
 
 //get all products
 const getProducts = async(req, res) => {
-    try {
-        const products = await Product.find({})
 
+    try {
+        let products 
+        if(req.user.paid) {
+            products = await Product.find({})
+        } else {
+            products = await Product.find({}).limit(5)
+        }
         return res.send(products)
         
     } catch (error) {

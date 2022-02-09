@@ -15,11 +15,11 @@ function App() {
       <main className='py-3'>
         <Container>
           <Routes>
-          <Route path='/login' element={<LoginScreen />} />
-          <Route path='/register' element={<RegisterScreen />} />
-          <Route path='/product/:id' element={<ProductScreen />} />     
-          <Route path='/' element={<HomeScreen />} exact /> 
-          </Routes>              
+            <Route path='/register' element={<RegisterScreen />} />
+            <Route path='/product/:id' element={<ProductScreen />} />
+            <Route path='/login' element={<LoginScreen />} />
+            <Route path='/' element={<HomeScreen />} exact />
+          </Routes>
         </Container>
       </main>
       <Footer />

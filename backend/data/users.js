@@ -10,6 +10,7 @@ const users = [
     {
         name: 'Sourabh Malewade',
         email: 'sourabh@gmail.com',
+        paid: true,
         password: bcrypt.hashSync('123456', 10),
         
     },
@@ -34,6 +35,7 @@ const users = [
     {
         name: 'Savni Thakur',
         email: 'savni@gmail.com',
+        paid: true,
         password: bcrypt.hashSync('123456', 10),
         
     },

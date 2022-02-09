@@ -1,49 +1,46 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Form, Button, Row, Col } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../components/FormContainer'
-import { register } from '../actions/userActions'
 import axios from "axios"
-
 
 const RegisterScreen = ({ /* location, history */ }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [paid, setPaid] = useState(false)
   const [message, setMessage] = useState(null)
 
- /*  const dispatch = useDispatch()
-
-  const userRegister = useSelector((state) => state.userRegister)
-  const { userInfo } = userRegister */
-
-  /* const redirect = location.search ? location.search.split('=')[1] : '/' */
-
   const userRegisterFunc = () => {
+    if (name && email && password && confirmPassword) {
     axios.post("http://localhost:5000/users", {
-      name, email, password
+        name, email, password, paid
     })
     .then(res => {
-      console.log(res.status, res.data)
-      if(res.data.status !== 401) {
-        const userObj = {
-          name: res.data.name,
-          email: res.data.email,
-          password: res.data.password
-        }
+          if (res.data.status !== 401) {
+            alert("user registered, please login now.")
+            window.location.href = "/login"
     }
   })
   .catch((err) => {
-
+          alert(err.toString())
   })
+    }
+    else {
+      alert("please fill the form properly")
+    }
+  }
+
+  const paidToggle = () => {
+    if (paid) setPaid(false)
+    else setPaid(true)
 }
 
 
   useEffect(() => {
     
-   },[] );
+  }, []);
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -99,17 +96,28 @@ const RegisterScreen = ({ /* location, history */ }) => {
           ></Form.Control>
         </Form.Group>
 
-        <Button type='submit' variant='primary'>
+        <Form.Group controlId='paidCheck'>
+          <Form.Label>Confirm Password</Form.Label>
+          <Form.Check
+            type='checkbox'
+            label="Paid User"
+            id="paidCheckId"
+            value={paid}
+            onChange={(e) => paidToggle()}
+          ></Form.Check>
+        </Form.Group>
+
+        <Button type='submit ' variant='primary'>
           Register
         </Button>
       </Form>
 
-      <Row className='py-3'>
+      <Row className='py-3 '>
         <Col>
-          {/* Have an Account?{' '}
-          <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
+          Have an Account?{' '}
+          <Link to={`/login`}>
             Login
-          </Link> */}
+          </Link>
         </Col>
       </Row>
     </FormContainer>

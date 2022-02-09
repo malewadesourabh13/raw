@@ -29,38 +29,44 @@ const authUser = async(req, res) => {
 
 //register a new user POST
 const registerUser = async(req, res) => {
-        const { name, email, password } = req.body
-        const userExists = await User.findOne({ email: email })
+        const { name, email, password, paid } = req.body
 
-        if(userExists) {
-            return res.send({
-                status: 400,
-                message: `User already exists`
+        if (name && email && password ) {
+            const userExists = await User.findOne({ email: email })
+            if(userExists) {
+                return res.send({
+                    status: 400,
+                    message: `User already exists`
+                })
+            }
+    
+            const user = await User.create({
+                name: name,
+                email: email,
+                password: password,
+                paid: paid
             })
-        }
-
-        const user = await User.create({
-            name: name,
-            email: email,
-            password: password
-        })
-
-        if(user) {
-            return res.send({
-                status: 201,
-                _id: user._id,
-                name: user.name,
-                email: user.email,
-                isAdmin: user.isAdmin,
-                token: generateToken(user._id)
-            })
+    
+            if(user) {
+                return res.send({
+                    status: 201,
+                    _id: user._id,
+                    name: user.name,
+                    email: user.email,
+                    isAdmin: user.isAdmin,
+                })
+            } else {
+                res.send({
+                    status: 401,
+                    message: `Invalid User data`
+                })
+            }
         } else {
-            res.send({
+            return res.send({
                 status: 401,
                 message: `Invalid User data`
             })
         }
-
 }
 
 

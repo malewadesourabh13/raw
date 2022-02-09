@@ -1,39 +1,50 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
+import { Navigate } from "react-router-dom"
 import Product from '../components/Product'
 /* import products from '../products' */
 import axios from 'axios';
+import { getUser, isLoggedIn } from '../utils';
 
 const HomeScreen = () => {
   const [products, setProducts] = useState([])
-  const [user,setUser] = useState(null)
+  const [user, setUser] = useState(getUser())
+  const [loggedIn, setLoggedIn] = useState(isLoggedIn())
 
   const fetchProducts = async () => {
-    const {data} = await axios.get('http://localhost:5000/products');
-    /* const data = res; */
-    setProducts(data)
+    console.log(user)
+    axios.get('http://localhost:5000/products',
+      {
+        headers: { "Authorization": "Bearer " + user.token }
+      })
+      .then(res => {
+        if (res.data && res.data.status == 401) {
+          alert(res.data.message)
+        }
+        else setProducts(res.data)
+      })
+      .catch(err => alert(err.toString()))
   }
 
   useEffect(() => {
-    setUser(JSON.parse(localStorage.getItem("user")))
-    if(user)fetchProducts()
-  }, [])
+    if (user) fetchProducts()
+  }, [user])
 
   return <>
     <h1>
-        SOL
+      SOL
     </h1>
     {
-      user &&
-<Row>
-{products.map(product => (
-    <Col sm={12} md={6} lg={4} xl={3}>
-        <Product product={product} />
-    </Col>
-))}
-</Row>
+      loggedIn ?
+        <Row>
+          {products.map(product => (
+            <Col sm={12} md={6} lg={4} xl={3}>
+              <Product product={product} />
+            </Col>
+          ))}
+        </Row>
+        : <Navigate replace to={"/login"}></Navigate>
     }
-    
   </>;
 }
 
